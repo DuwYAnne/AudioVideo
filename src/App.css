@@ -7,6 +7,92 @@
   pointer-events: none;
 }
 
+.Map {
+  overflow: hidden;
+  height: 500px;
+}
+
+.popup {
+  position: absolute;
+  background: white;
+  border: 1px solid black;
+  padding:5px;
+  overflow: hidden;
+  opacity: 0;
+  height: 20px; /* Start from collapsed height */
+  width: 20px;
+  transition: opacity 0.15s ease-in-out, height 0.15s ease-in-out, width 0.15s ease-in-out;
+  /* Other styles... */
+}
+.popup:hover{
+  opacity: 1;
+  width: 200px;
+  height: 100px;
+
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  background-color: #fff;
+  padding: 20px;
+  height: 600px;
+  width: 500px;
+  border-radius: 5px;
+  max-width: 800px; /* Set a maximum width for the box */
+  position: relative; /* Required for absolute positioning of close button */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px; /* Adjust top padding for desired position */
+  right: 10px; /* Adjust right padding for desired position */
+  padding: 5px 10px;
+  border: none;
+  background-color: #ccc; /* Adjust close button style */
+  cursor: pointer; /* Indicate clickable behavior */
+}
+
+.audio-container{
+  width: 500px;
+}
+.audio-container .audio{
+  background: #222;
+  width: 100%;
+  height: 130px;
+}
+.audio-container .location{
+  position:absolute;
+  top: 5px;
+  left: 5px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px, 24px;
+  border-radius: 3px;
+  font-size: 13px;
+}
+
+.audio-container .btn {
+  padding: 16px;
+  width: 24px;
+  margin-right: 8px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.audio-container .buttons .mute-btn .fa-volume-mute {
+  display: none; 
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
