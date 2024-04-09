@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import map from './map.png'
 import AudioInfo from './audioinfo.js'
-import audio5 from "./recordings/Quad_Morning.mp3"
+import audio1 from "./recordings/Quad_Morning.mp3"
+import audio2 from "./recordings/urbana_m.mp3"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faVolumeHigh} from '@fortawesome/free-solid-svg-icons'
 
 const Map = () => {
   const imageRef = useRef(null);
+  const audioPaths = [audio1,audio2]
   const [rectTop, setRectTop] = useState(0);
   const [rectLeft, setRectLeft] = useState(0);
-
+  const [audoFile,setAudioFile] = useState('')
   
   const [showPopup, setShowPopup] = useState(false);
   const [showIndex, setShowIndex] = useState(0);
@@ -17,6 +19,7 @@ const Map = () => {
     console.log(index);
     setShowIndex(index);
     setShowPopup(true);
+    setAudioFile(audioPaths[index-1])
   }
   const handleMouseLeave = () => {
     setShowPopup(false);
@@ -56,11 +59,20 @@ const Map = () => {
       left: `${rectLeft + 100}px`,
       position: 'fixed',
     },
+    r3: {
+      width: '20px',
+      height: '20px',
+      top: `${rectTop + 20}px`, // Use template literal and string interpolation
+      left: `${rectLeft + 450}px`,
+      position: 'fixed',
+    },
   };
   
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => setIsOpen(true);
+  const handleClick = () => {
+    setIsOpen(true);
+  }
   const handleClose = () => setIsOpen(false);
 
   const PopUp = ({ children, show }) => {
@@ -82,10 +94,15 @@ const Map = () => {
 
         <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
       </div>
+      <div style={styles.r3} className="rectangle3" onMouseEnter={handleMouseEnter(3)}>
+        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 3} onMouseLeave={handleMouseLeave}>Urbana</PopUp>
+
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+      </div>
       {isOpen && (
         <div className="overlay">
           <div className="box">
-            <AudioInfo audioUrl={audio5}/>
+            <AudioInfo audioUrl={audoFile}/>
             <button className="close-button" onClick={handleClose}>Close</button>
           </div>
         </div>
