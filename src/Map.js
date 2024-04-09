@@ -2,13 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import map from './map.png'
 import AudioInfo from './audioinfo.js'
 import audio1 from "./recordings/Quad_Morning.mp3"
-import audio2 from "./recordings/urbana_m.mp3"
+import audio2 from "./recordings/SouthQuad_Afternoon.mp3"
+import audio3 from "./recordings/urbana_m.mp3"
+import audio4 from "./recordings/NorthQuad_Night.mp3"
+import audio5 from "./recordings/Grainger_Night.mp3"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faVolumeHigh} from '@fortawesome/free-solid-svg-icons'
+import {faVolumeLow} from '@fortawesome/free-solid-svg-icons'
 
 const Map = () => {
   const imageRef = useRef(null);
-  const audioPaths = [audio1,audio2]
+  const audioPaths = [audio1,audio2,audio3,,audio4,audio5]
   const [rectTop, setRectTop] = useState(0);
   const [rectLeft, setRectLeft] = useState(0);
   const [audoFile,setAudioFile] = useState('')
@@ -48,15 +52,15 @@ const Map = () => {
     r1: {
       width: '20px',
       height: '20px',
-      top: `${rectTop + 50}px`, // Use template literal and string interpolation
-      left: `${rectLeft + 50}px`,
+      top: `${rectTop + 90}px`, // Use template literal and string interpolation
+      left: `${rectLeft + 55}px`,
       position: 'fixed',
     },
     r2: {
       width: '20px',
       height: '20px',
-      top: `${rectTop + 50}px`, // Use template literal and string interpolation
-      left: `${rectLeft + 100}px`,
+      top: `${rectTop + 250}px`, // Use template literal and string interpolation
+      left: `${rectLeft + 80}px`,
       position: 'fixed',
     },
     r3: {
@@ -64,6 +68,20 @@ const Map = () => {
       height: '20px',
       top: `${rectTop + 20}px`, // Use template literal and string interpolation
       left: `${rectLeft + 450}px`,
+      position: 'fixed',
+    },
+    r4: {
+      width: '20px',
+      height: '20px',
+      top: `${rectTop + 30}px`, // Use template literal and string interpolation
+      left: `${rectLeft + 55}px`,
+      position: 'fixed',
+    },
+    r5: {
+      width: '20px',
+      height: '20px',
+      top: `${rectTop + 10}px`, // Use template literal and string interpolation
+      left: `${rectLeft + 55}px`,
       position: 'fixed',
     },
   };
@@ -86,11 +104,11 @@ const Map = () => {
       <img ref={imageRef} src={map} className="Map" alt="Map" />
       
       <div style={styles.r1} className="rectangle1" onMouseEnter={handleMouseEnter(1)}>
-        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 1} onMouseLeave={handleMouseLeave}>Edit me!</PopUp>
+        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 1} onMouseLeave={handleMouseLeave}>Main Quad</PopUp>
         <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
       </div>
       <div style={styles.r2} className="rectangle2" onMouseEnter={handleMouseEnter(2)}>
-        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 2} onMouseLeave={handleMouseLeave}>Edit me 2!</PopUp>
+        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 2} onMouseLeave={handleMouseLeave}>South Quad</PopUp>
 
         <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
       </div>
@@ -98,6 +116,16 @@ const Map = () => {
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 3} onMouseLeave={handleMouseLeave}>Urbana</PopUp>
 
         <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+      </div>
+      <div style={styles.r4} className="rectangle4" onMouseEnter={handleMouseEnter(4)}>
+        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 4} onMouseLeave={handleMouseLeave}>North Quad</PopUp>
+
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeLow} /> :
+      </div>
+      <div style={styles.r5} className="rectangle5" onMouseEnter={handleMouseEnter(5)}>
+        <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 5} onMouseLeave={handleMouseLeave}>Grainger Library</PopUp>
+
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeLow} /> :
       </div>
       {isOpen && (
         <div className="overlay">
