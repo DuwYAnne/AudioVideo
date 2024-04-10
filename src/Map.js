@@ -1,21 +1,77 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { PieChart } from '@mui/x-charts/PieChart';
 import map from './map.png'
 import AudioInfo from './audioinfo.js'
+// morning audio paths
 import audio1 from "./recordings/Quad_Morning.mp3"
 import audio2 from "./recordings/urbana_m.mp3"
 import audio3 from "./recordings/Alma_Morning.mp3"
 import audio4 from "./recordings/green_st_mn.m4a"
 import audio5 from "./recordings/GreenSecond_Morning.mp3"
 import audio6 from "./recordings/SouthQuad_Morning.mp3"
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faVolumeHigh} from '@fortawesome/free-solid-svg-icons'
 
 const Map = () => {
   const imageRef = useRef(null);
   const audioPaths = [audio1,audio2,audio3,audio4,audio5,audio6]
+  const locations = ["Main Quad", "Urbana", "Alma", "Green & 4th", "Green & Second", "South Quad"]
+  const audioClass = [
+    // Quad
+    [
+      {id: 0, value: 70, label: 'Ambient'},
+      {id: 1, value: 0, label: 'Wildlife'},
+      {id: 2, value: 0, label: 'Speech'},
+      {id: 3, value: 30, label: 'Traffic'},
+    ],
+    // Urbana
+    [
+      {id: 0, value: 4, label: 'Ambient'},
+      {id: 1, value: 8, label: 'Wildlife'},
+      {id: 2, value: 80, label: 'Speech'},
+      {id: 3, value: 8, label: 'Traffic'},
+    ],
+    // Alma
+    [
+      {id: 0, value: 22, label: 'Ambient'},
+      {id: 1, value: 0, label: 'Wildlife'},
+      {id: 2, value: 78, label: 'Speech'},
+      {id: 3, value: 0, label: 'Traffic'},
+    ],
+    // Green
+    [
+      {id: 0, value: 6, label: 'Ambient'},
+      {id: 1, value: 2, label: 'Wildlife'},
+      {id: 2, value: 28, label: 'Speech'},
+      {id: 3, value: 54, label: 'Traffic'},
+    ],
+    // Green & Second
+    [
+      {id: 0, value: 12, label: 'Ambient'},
+      {id: 1, value: 32, label: 'Wildlife'},
+      {id: 2, value: 54, label: 'Speech'},
+      {id: 3, value: 2, label: 'Traffic'},
+    ],
+    // South Quad
+    [
+      {id: 0, value: 86, label: 'Ambient'},
+      {id: 1, value: 0, label: 'Wildlife'},
+      {id: 2, value: 0, label: 'Speech'},
+      {id: 3, value: 14, label: 'Traffic'},
+    ],
+  ]
+  const audioItems = [
+    ["Speech", "Yelling"],
+    ["Motorcycle", "Birds", "Crosswalk"],
+    ["Siren", "Food Truck", "Construction", "Bus"],
+    ["Birds", "Speech", "Crosswalk"],
+    ["Birds", "Siren", "Honk"],
+    ["Lots of Wind", "Construction", "Siren"],
+  ]
   const [rectTop, setRectTop] = useState(0);
   const [rectLeft, setRectLeft] = useState(0);
-  const [audoFile,setAudioFile] = useState('')
   
   const [showPopup, setShowPopup] = useState(false);
   const [showIndex, setShowIndex] = useState(0);
@@ -23,7 +79,6 @@ const Map = () => {
     console.log(index);
     setShowIndex(index);
     setShowPopup(true);
-    setAudioFile(audioPaths[index-1])
   }
   const handleMouseLeave = () => {
     setShowPopup(false);
@@ -112,127 +167,169 @@ const Map = () => {
       
       <div style={styles.r1} className="rectangle1" onMouseEnter={handleMouseEnter(1)}>
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 1} onMouseLeave={handleMouseLeave}>
-        <ul>
-          <li>
-          <strong>Ambient: </strong> 5%
-          </li>
-          <li>
-          <strong>Wildlife: </strong> 5%
-          </li>
-          <li>
-          <strong>Speech: </strong> 10%
-          </li>
-          <li>
-          <strong>Traffic: </strong> 80%
-          </li>
-        </ul>
+        <PieChart
+          series={[
+            {
+              data: audioClass[0],
+            },
+          ]}
+          slotProps={{
+            legend: {
+              position: {
+                vertical: 'middle',
+                horizontal: 'right',
+              },
+              itemMarkWidth: 20,
+              itemMarkHeight: 2,
+              markGap: 5,
+              itemGap: 2,
+            }
+          }}
+          width={200}
+          height={100}
+        />
         </PopUp>
-        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} />
       </div>
       <div style={styles.r2} className="rectangle2" onMouseEnter={handleMouseEnter(2)}>
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 2} onMouseLeave={handleMouseLeave}>
-        <ul>
-          <li>
-          <strong>Ambient: </strong> 40%
-          </li>
-          <li>
-          <strong>Wildlife: </strong> 5%
-          </li>
-          <li>
-          <strong>Speech: </strong> 5%
-          </li>
-          <li>
-          <strong>Traffic: </strong> 50%
-          </li>
-        </ul>
+        <PieChart
+          series={[
+            {
+              data: audioClass[1],
+            },
+          ]}
+          slotProps={{
+            legend: {
+              position: {
+                vertical: 'middle',
+                horizontal: 'right',
+              },
+              itemMarkWidth: 20,
+              itemMarkHeight: 2,
+              markGap: 5,
+              itemGap: 2,
+            }
+          }}
+          width={200}
+          height={100}
+        />
         </PopUp>
 
-        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} />
       </div>
       <div style={styles.r3} className="rectangle3" onMouseEnter={handleMouseEnter(3)}>
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 3} onMouseLeave={handleMouseLeave}>
-        <ul>
-          <li>
-          <strong>Ambient: </strong> 15%
-          </li>
-          <li>
-          <strong>Wildlife: </strong> 5%
-          </li>
-          <li>
-          <strong>Speech: </strong> 35%
-          </li>
-          <li>
-          <strong>Traffic: </strong> 45%
-          </li>
-        </ul>
+        <PieChart
+          series={[
+            {
+              data: audioClass[2],
+            },
+          ]}
+          slotProps={{
+            legend: {
+              position: {
+                vertical: 'middle',
+                horizontal: 'right',
+              },
+              itemMarkWidth: 20,
+              itemMarkHeight: 2,
+              markGap: 5,
+              itemGap: 2,
+            }
+          }}
+          width={200}
+          height={100}
+        />
         </PopUp>
 
-        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} />
       </div>
       <div style={styles.r4} className="rectangle4" onMouseEnter={handleMouseEnter(4)}>
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 4} onMouseLeave={handleMouseLeave}>
-        <ul>
-          <li>
-          <strong>Ambient: </strong> 4%
-          </li>
-          <li>
-          <strong>Wildlife: </strong> 1%
-          </li>
-          <li>
-          <strong>Speech: </strong> 45%
-          </li>
-          <li>
-          <strong>Traffic: </strong> 50%
-          </li>
-        </ul>
+        <PieChart
+          series={[
+            {
+              data: audioClass[3],
+            },
+          ]}
+          slotProps={{
+            legend: {
+              position: {
+                vertical: 'middle',
+                horizontal: 'right',
+              },
+              itemMarkWidth: 20,
+              itemMarkHeight: 2,
+              markGap: 5,
+              itemGap: 2,
+            }
+          }}
+          width={200}
+          height={100}
+        />
         </PopUp>
 
-        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} />
       </div>
       <div style={styles.r5} className="rectangle5" onMouseEnter={handleMouseEnter(5)}>
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 5} onMouseLeave={handleMouseLeave}>
-        <ul>
-          <li>
-          <strong>Ambient: </strong> 17%
-          </li>
-          <li>
-          <strong>Wildlife: </strong> 3%
-          </li>
-          <li>
-          <strong>Speech: </strong> 30%
-          </li>
-          <li>
-          <strong>Traffic: </strong> 50%
-          </li>
-        </ul>
+        <PieChart
+          series={[
+            {
+              data: audioClass[4],
+            },
+          ]}
+          slotProps={{
+            legend: {
+              position: {
+                vertical: 'middle',
+                horizontal: 'right',
+              },
+              itemMarkWidth: 20,
+              itemMarkHeight: 2,
+              markGap: 5,
+              itemGap: 2,
+            }
+          }}
+          width={200}
+          height={100}
+        />
         </PopUp>
 
-        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} />
       </div>
       <div style={styles.r6} className="rectangle6" onMouseEnter={handleMouseEnter(6)}>
         <PopUp className={`popup ${showPopup ? 'popup-enter-active' : 'popup-enter'}`} show={showPopup && showIndex === 6} onMouseLeave={handleMouseLeave}>
-        <ul>
-          <li>
-          <strong>Ambient: </strong> 40%
-          </li>
-          <li>
-          <strong>Wildlife: </strong> 5%
-          </li>
-          <li>
-          <strong>Speech: </strong> 20%
-          </li>
-          <li>
-          <strong>Traffic: </strong> 35%
-          </li>
-        </ul>
+        <PieChart
+          series={[
+            {
+              data: audioClass[5],
+            },
+          ]}
+          slotProps={{
+            legend: {
+              position: {
+                vertical: 'middle',
+                horizontal: 'right',
+              },
+              itemMarkWidth: 20,
+              itemMarkHeight: 2,
+              markGap: 5,
+              itemGap: 2,
+            }
+          }}
+          width={200}
+          height={100}
+        />
         </PopUp>
 
-        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} /> :
+        <FontAwesomeIcon className="fa-volume" icon={faVolumeHigh} />
       </div>
       {isOpen && (
         <div className="overlay">
           <div className="box">
-            <AudioInfo audioUrl={audoFile}/>
+            <AudioInfo audioUrl={audioPaths[showIndex-1]} location={locations[showIndex-1]} classify={audioClass[showIndex-1]} audioItems={audioItems[showIndex-1]}/>
             <button className="close-button" onClick={handleClose}>Close</button>
           </div>
         </div>

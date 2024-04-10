@@ -64,6 +64,8 @@
 }
 
 .audio-container{
+  margin-top: 20px;
+  border-radius: 2px;
   width: 500px;
 }
 .audio-container .audio{
@@ -73,13 +75,12 @@
 }
 .audio-container .location{
   position:absolute;
-  top: 5px;
-  left: 5px;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 8px, 24px;
+  top: 7px;
+  left: 7px;
+  color: #ff0000;
+  padding: 15px, 24px;
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 20px;
 }
 
 .audio-container .btn {
@@ -93,6 +94,17 @@
 .audio-container .buttons .mute-btn .fa-volume-mute {
   display: none; 
 }
+figcaption.audio-list {
+  font-size: 24px;
+  font-weight: bold;
+}
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
